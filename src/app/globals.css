@@ -1,26 +1,216 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-pale: #F5E4A8;
+    --gold-dark: #9A7230;
+    --navy: #080F1E;
+    --navy-mid: #0D1A30;
+    --navy-light: #162340;
+    --navy-card: #0F1B2D;
+    --surface: rgba(255, 255, 255, 0.055);
+    --surface-hover: rgba(255, 255, 255, 0.09);
+    --surface-active: rgba(255, 255, 255, 0.13);
+    --border: rgba(255, 255, 255, 0.08);
+    --border-mid: rgba(255, 255, 255, 0.12);
+    --border-gold: rgba(201, 168, 76, 0.35);
+    --text-primary: #EEF2FF;
+    --text-secondary: rgba(238, 242, 255, 0.60);
+    --text-muted: rgba(238, 242, 255, 0.35);
   }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: var(--navy);
+    color: var(--text-primary);
+    font-family: var(--font-geist-sans), 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: rgba(201,168,76,0.25); color: var(--gold-light); }
+
+  ::-webkit-scrollbar { width: 3px; height: 3px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 100px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* ── Glass system ─────────────────────────────────────────────────────────
+   *  .glass-blur  → ONLY for fixed/sticky elements (navbar, modal). Expensive.
+   *  .glass       → cards, pills, badges — solid semi-transparent, NO blur.
+   *  .glass-dark  → overlays on images — also solid, no blur.
+   *  .glass-gold  → gold-tinted surface — solid, no blur.
+   * ─────────────────────────────────────────────────────────────────────── */
+
+  /* Reserved for navbar / sticky sidebar only */
+  .glass-blur {
+    background: rgba(8, 15, 30, 0.80);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--border);
+  }
+
+  /* Cards, pills, badges — solid, GPU-cheap */
+  .glass {
+    background: rgba(15, 27, 45, 0.80);
+    border: 1px solid var(--border);
+  }
+
+  .glass-mid {
+    background: rgba(18, 32, 52, 0.90);
+    border: 1px solid var(--border-mid);
+  }
+
+  .glass-dark {
+    background: rgba(8, 15, 30, 0.88);
+    border: 1px solid var(--border);
+  }
+
+  .glass-gold {
+    background: rgba(201, 168, 76, 0.10);
+    border: 1px solid var(--border-gold);
+  }
+
+  /* ── Gradients ────────────────────────────────── */
+  .gradient-gold { background: linear-gradient(135deg, #E8C96A 0%, #C9A84C 50%, #9A7230 100%); }
+  .gradient-gold-soft { background: linear-gradient(135deg, rgba(232,201,106,0.9), rgba(201,168,76,0.9)); }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold-light) 40%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .gradient-text-subtle {
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Shadows ─────────────────────────────────── */
+  .glow-gold { box-shadow: 0 0 60px rgba(201,168,76,0.18), 0 0 120px rgba(201,168,76,0.06); }
+  .glow-gold-sm { box-shadow: 0 0 20px rgba(201,168,76,0.30), 0 4px 16px rgba(0,0,0,0.4); }
+  .shadow-card { box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 6px rgba(0,0,0,0.25); }
+  .shadow-card-hover { box-shadow: 0 12px 40px rgba(0,0,0,0.50), 0 4px 12px rgba(0,0,0,0.35); }
+
+  /* ── Selection state ─────────────────────────── */
+  .card-selected {
+    background: rgba(201, 168, 76, 0.12) !important;
+    border-color: rgba(201,168,76,0.55) !important;
+    box-shadow: 0 0 0 1px rgba(201,168,76,0.3), 0 8px 32px rgba(201,168,76,0.12) !important;
+  }
+
+  /* ── Typography ──────────────────────────────── */
+  .text-primary { color: var(--text-primary); }
+  .text-secondary { color: var(--text-secondary); }
+  .text-muted { color: var(--text-muted); }
+  .text-gold { color: var(--gold); }
+  .text-gold-light { color: var(--gold-light); }
+
+  .label-caps {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ── Layout ──────────────────────────────────── */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-top { padding-top: env(safe-area-inset-top); }
+
+  /* ── Overlays ────────────────────────────────── */
+  .overlay-dark { background: linear-gradient(to top, rgba(8,15,30,0.95) 0%, rgba(8,15,30,0.4) 50%, rgba(8,15,30,0.1) 100%); }
+  .overlay-darker { background: linear-gradient(to top, rgba(8,15,30,1) 0%, rgba(8,15,30,0.65) 40%, rgba(8,15,30,0.15) 100%); }
+
+  /* ── Hover lift (CSS-only, no JS) ─────────────── */
+  .hover-card {
+    transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), box-shadow 0.22s ease;
+    will-change: transform;
+  }
+  .hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.35);
+  }
+  .hover-card:active { transform: scale(0.98) translateY(-2px); }
+
+  /* ── Pulse / float (used sparingly) ─────────── */
+  .animate-pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+}
+
+/* ── Keyframes ──────────────────────────────────── */
+@keyframes pulse-gold {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.animate-slide-up { animation: slideUpFade 0.45s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-fade-in  { animation: fadeIn 0.35s ease both; }
+
+.shimmer-text {
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-pale) 45%, var(--gold) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ── React Day Picker ───────────────────────────── */
+.rdp-root { --rdp-accent-color: var(--gold) !important; color: var(--text-primary) !important; }
+.rdp-day_button {
+  color: var(--text-primary) !important;
+  border-radius: 10px !important;
+  transition: background 0.12s ease !important;
+}
+.rdp-day_button:hover { background: var(--surface-hover) !important; }
+.rdp-selected .rdp-day_button,
+.rdp-range_start .rdp-day_button,
+.rdp-range_end .rdp-day_button {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)) !important;
+  color: var(--navy) !important; font-weight: 700 !important;
+}
+.rdp-range_middle .rdp-day_button { background: rgba(201,168,76,0.10) !important; border-radius: 0 !important; }
+.rdp-month_caption { color: var(--text-primary) !important; font-weight: 600 !important; }
+.rdp-nav button { color: var(--text-secondary) !important; }
+.rdp-weekday { color: var(--text-muted) !important; font-size: 0.75rem !important; }
+.rdp-outside .rdp-day_button { opacity: 0.25 !important; }
+.rdp-disabled .rdp-day_button { opacity: 0.15 !important; cursor: not-allowed !important; }
+.rdp-today .rdp-day_button { border: 1px solid var(--border-gold) !important; }
+
+/* Reduced motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
