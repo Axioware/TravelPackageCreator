@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 const TRANSPORT = [
   { id: 'shared'  as TransportType, emoji: '🚌', name: 'Shared Transport', sub: 'Group buses & vans',    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=70', accent: '#6B7280', badge: 'Affordable', extra: 'Included', perks: ['Air-conditioned', 'Fixed schedule', 'Group transfers'] },
   { id: 'private' as TransportType, emoji: '🚐', name: 'Private Vehicle',   sub: 'Your schedule',        image: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=70', accent: '#3B82F6', badge: 'Popular',    extra: '+15%',    perks: ['Dedicated driver', 'Door-to-door', 'Flexible timing'] },
-  { id: 'luxury'  as TransportType, emoji: '🚗', name: 'Luxury Vehicle',   sub: 'Land Cruiser · Merc',   image: 'https://images.unsplash.com/photo-1563720223523-cdee290d5b5?w=600&q=70', accent: '#C9A84C', badge: 'Premium',    extra: '+35%',    perks: ['Premium SUV', 'Chauffeur', 'Airport meet & greet'] },
+  { id: 'luxury'  as TransportType, emoji: '🚗', name: 'Luxury Vehicle',   sub: 'Land Cruiser · Merc',   image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&q=70', accent: '#C9A84C', badge: 'Premium',    extra: '+35%',    perks: ['Premium SUV', 'Chauffeur', 'Airport meet & greet'] },
 ];
 
 const SPECIALS = [
@@ -45,7 +45,7 @@ export function Step09Transport() {
                   onClick={() => setTransportType(opt.id)}
                   className={cn(
                     'hover-card relative text-left rounded-2xl overflow-hidden w-full shadow-card',
-                    isSelected ? 'ring-2 ring-offset-1 ring-offset-[var(--navy)]' : ''
+                    isSelected ? 'ring-2 ring-offset-1 ring-offset-[var(--bg)]' : ''
                   )}
                   style={isSelected ? { '--tw-ring-color': opt.accent } as React.CSSProperties : undefined}
                 >
@@ -54,7 +54,7 @@ export function Step09Transport() {
                     <div className="absolute inset-0 overlay-darker" />
                     <div className="absolute inset-0 opacity-22" style={{ background: `linear-gradient(to top right, ${opt.accent}40, transparent 60%)` }} />
 
-                    <div className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+                    <div className="absolute top-3 left-3 text-[12px] font-bold px-2.5 py-0.5 rounded-full"
                       style={{ background: `${opt.accent}25`, color: opt.accent, border: `1px solid ${opt.accent}40` }}>
                       {opt.badge}
                     </div>
@@ -69,7 +69,7 @@ export function Step09Transport() {
                       <div className="flex items-end justify-between">
                         <div>
                           <p className="text-[1rem] font-bold text-white">{opt.emoji} {opt.name}</p>
-                          <p className="text-[11px] text-white/50">{opt.sub}</p>
+                          <p className="text-[13px] text-white/50">{opt.sub}</p>
                         </div>
                         <span className="text-[12px] font-bold px-2.5 py-1 rounded-lg" style={{ background: `${opt.accent}25`, color: opt.accent }}>{opt.extra}</span>
                       </div>
@@ -79,7 +79,7 @@ export function Step09Transport() {
                   <div className="p-3 bg-[var(--navy-card)]">
                     <ul className="space-y-1.5">
                       {opt.perks.map((p) => (
-                        <li key={p} className="flex items-start gap-2 text-[12px] text-[var(--text-secondary)]">
+                        <li key={p} className="flex items-start gap-2 text-[16px] text-[var(--text-secondary)]">
                           <Check className="w-3 h-3 shrink-0 mt-0.5" style={{ color: opt.accent }} strokeWidth={2.5} />
                           {p}
                         </li>
@@ -96,7 +96,7 @@ export function Step09Transport() {
       {/* Special requirements */}
       <div>
         <p className="label-caps mb-1.5">Special requirements</p>
-        <p className="text-[13px] text-[var(--text-muted)] mb-4">Optional — select all that apply.</p>
+        <p className="text-[17px] text-[var(--text-muted)] mb-4">Optional — select all that apply.</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
           {SPECIALS.map((req, i) => {
             const active = specialRequirements.includes(req.id);
@@ -115,7 +115,7 @@ export function Step09Transport() {
                     </div>
                   )}
                   <span className="text-[1.4rem] block mb-1.5">{req.emoji}</span>
-                  <p className="text-[12px] font-semibold text-[var(--text-primary)] leading-tight">{req.label}</p>
+                  <p className="text-[16px] font-semibold text-[var(--text-primary)] leading-tight">{req.label}</p>
                 </button>
               </motion.div>
             );

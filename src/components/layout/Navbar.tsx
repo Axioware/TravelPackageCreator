@@ -12,7 +12,6 @@ export function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
-      {/* Progress bar — pinned to very top */}
       {currentStep > 0 && (
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-[var(--border)]">
           <motion.div
@@ -23,24 +22,24 @@ export function Navbar() {
         </div>
       )}
 
-      {/* Use glass-blur only here — it's a single fixed element */}
       <div className="glass-blur" style={{ paddingTop: currentStep > 0 ? '2px' : 0 }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[58px] flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[62px] flex items-center justify-between gap-4">
 
+          {/* Logo */}
           <div className="flex items-center gap-3 shrink-0">
             <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-base font-bold text-[var(--navy)]"
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-[17px] font-bold text-[var(--navy)]"
               style={{ background: 'linear-gradient(135deg, #E8C96A, #C9A84C)' }}
             >
               ✈
             </div>
             <div className="leading-none">
-              <p className="font-bold text-[var(--text-primary)] text-[15px] tracking-tight">SafarSaz</p>
-              <p className="text-[10px] text-[var(--text-muted)] tracking-widest uppercase">Premium Travel</p>
+              <p className="font-bold text-[var(--text-primary)] text-[17px] tracking-tight">SafarSaz</p>
+              <p className="text-[11px] text-[var(--text-muted)] tracking-widest uppercase">Premium Travel</p>
             </div>
           </div>
 
-          {/* Step pills — no motion, plain CSS */}
+          {/* Step pills */}
           {currentStep > 0 && (
             <div className="hidden md:flex items-center gap-1.5">
               {Array.from({ length: steps }).map((_, i) => (
@@ -52,13 +51,14 @@ export function Navbar() {
                     opacity: i < currentStep ? 1 : 0.25,
                     background: i < currentStep
                       ? 'linear-gradient(90deg, #E8C96A, #C9A84C)'
-                      : 'rgba(255,255,255,0.15)',
+                      : 'rgba(0,0,0,0.10)',
                   }}
                 />
               ))}
             </div>
           )}
 
+          {/* Right */}
           <div className="flex items-center gap-2 shrink-0">
             <AnimatePresence>
               {estimatedPrice > 50000 && currentStep > 1 && (
@@ -68,12 +68,12 @@ export function Navbar() {
                   exit={{ opacity: 0 }}
                   className="hidden sm:flex items-center gap-2 glass-gold rounded-full px-3.5 py-1.5"
                 >
-                  <span className="text-[11px] text-[var(--text-muted)]">estimated</span>
+                  <span className="text-[11px] text-[var(--text-muted)]">est.</span>
                   <motion.span
                     key={estimatedPrice}
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-sm font-bold text-[var(--gold-light)]"
+                    className="text-[14px] font-bold text-[var(--gold-light)]"
                   >
                     {formatPKR(estimatedPrice)}
                   </motion.span>
@@ -83,9 +83,9 @@ export function Navbar() {
 
             <a
               href="tel:+923001234567"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-full glass border-[var(--border)] border text-[var(--text-secondary)] text-[13px] hover:border-[var(--border-gold)] hover:text-[var(--gold-light)] transition-colors duration-200"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-full glass border-[var(--border)] border text-[var(--text-secondary)] text-[14px] hover:border-[var(--border-gold)] hover:text-[var(--gold-light)] transition-colors duration-200"
             >
-              <Phone className="w-3.5 h-3.5" />
+              <Phone className="w-4 h-4" />
               <span className="hidden sm:inline font-medium">0300 123 4567</span>
             </a>
           </div>

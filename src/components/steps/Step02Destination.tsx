@@ -22,7 +22,6 @@ export function Step02Destination() {
 
   function handleSelect(id: string) {
     setDestination(id);
-    setTimeout(() => nextStep(), 220);
   }
 
   const selectedDest = destination ? all.find((d) => d.id === destination) : null;
@@ -44,7 +43,7 @@ export function Step02Destination() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search destinations…"
-          className="w-full glass rounded-xl pl-11 pr-4 py-3 text-[15px] text-[var(--text-primary)] placeholder-[var(--text-muted)] border border-[var(--border)] focus:border-[var(--border-gold)] focus:outline-none transition-colors"
+          className="w-full glass rounded-xl pl-11 pr-4 py-3 text-[17px] text-[var(--text-primary)] placeholder-[var(--text-muted)] border border-[var(--border)] focus:border-[var(--border-gold)] focus:outline-none transition-colors"
         />
       </div>
 
@@ -64,7 +63,7 @@ export function Step02Destination() {
                 onClick={() => handleSelect(dest.id)}
                 className={cn(
                   'hover-card relative text-left rounded-2xl overflow-hidden w-full shadow-card',
-                  isSelected ? 'ring-2 ring-[var(--gold)] ring-offset-2 ring-offset-[var(--navy)]' : ''
+                  isSelected ? 'ring-2 ring-[var(--gold)] ring-offset-2 ring-offset-[var(--bg)]' : ''
                 )}
               >
                 {/* Image */}
@@ -84,7 +83,7 @@ export function Step02Destination() {
                   {dest.popular && (
                     <div className="absolute top-3.5 left-3.5 flex items-center gap-1.5 glass-dark rounded-full px-3 py-1 border border-white/10">
                       <span className="w-1.5 h-1.5 rounded-full bg-orange-400" />
-                      <span className="text-[11px] font-semibold text-white/80">Popular</span>
+                      <span className="text-[17px] font-semibold text-white/80">Popular</span>
                     </div>
                   )}
 
@@ -99,15 +98,15 @@ export function Step02Destination() {
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex items-end justify-between">
                       <div>
-                        <p className="text-[11px] font-semibold text-white/50 uppercase tracking-widest mb-0.5">
+                        <p className="text-[17px] font-semibold text-white/50 uppercase tracking-widest mb-0.5">
                           {dest.emoji}
                         </p>
                         <h3 className="text-[1.35rem] font-bold text-white leading-tight">{dest.name}</h3>
-                        <p className="text-[12px] text-white/50 italic mt-0.5">{dest.tagline}</p>
+                        <p className="text-[16px] text-white/50 italic mt-0.5">{dest.tagline}</p>
                       </div>
                       <div className="text-right shrink-0 ml-3">
-                        <p className="text-[11px] text-white/40 mb-0.5">from</p>
-                        <p className="text-[14px] font-bold text-[var(--gold-light)]">{formatPKR(dest.startingPrice)}</p>
+                        <p className="text-[12px] text-white/40 mb-0.5">from</p>
+                        <p className="text-[16px] font-bold text-[var(--gold-light)]">{formatPKR(dest.startingPrice)}</p>
                       </div>
                     </div>
                   </div>
@@ -118,14 +117,14 @@ export function Step02Destination() {
                   'px-4 py-3 flex items-center justify-between',
                   isSelected ? 'bg-[rgba(201,168,76,0.10)]' : 'bg-[var(--navy-card)]'
                 )}>
-                  <div className="flex items-center gap-2 text-[12px] text-[var(--text-muted)]">
+                  <div className="flex items-center gap-2 text-[16px] text-[var(--text-muted)]">
                     <span>{dest.weather}</span>
                     <span className="opacity-40">·</span>
                     <span>{dest.highlights[0]}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Star className="w-3 h-3 fill-[var(--gold)] text-[var(--gold)]" />
-                    <span className="text-[12px] font-bold text-[var(--gold)]">{dest.rating}</span>
+                    <span className="text-[16px] font-bold text-[var(--gold)]">{dest.rating}</span>
                   </div>
                 </div>
               </button>

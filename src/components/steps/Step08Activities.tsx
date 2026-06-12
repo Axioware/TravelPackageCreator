@@ -38,7 +38,7 @@ export function Step08Activities() {
       <div className="flex gap-2 overflow-x-auto no-scrollbar pb-0.5">
         {CATS.map((c) => (
           <button key={c} onClick={() => setCat(c)}
-            className={cn('shrink-0 px-4 py-2 rounded-full text-[13px] font-medium transition-colors duration-150',
+            className={cn('shrink-0 px-4 py-2 rounded-full text-[17px] font-medium transition-colors duration-150',
               cat === c ? 'gradient-gold text-[var(--navy)]'
                 : 'glass border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border-gold)]')}>
             {c}
@@ -62,7 +62,7 @@ export function Step08Activities() {
               <div
                 className={cn(
                   'relative rounded-2xl overflow-hidden shadow-card',
-                  selected ? 'ring-2 ring-offset-1 ring-offset-[var(--navy)]' : ''
+                  selected ? 'ring-2 ring-offset-1 ring-offset-[var(--bg)]' : ''
                 )}
                 style={selected ? { '--tw-ring-color': accent } as React.CSSProperties : undefined}
               >
@@ -74,12 +74,12 @@ export function Step08Activities() {
                   />
                   <div className="absolute inset-0 overlay-darker" />
 
-                  <div className="absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded-full"
+                  <div className="absolute top-3 left-3 text-[12px] font-bold px-2.5 py-0.5 rounded-full"
                     style={{ background: `${accent}25`, color: accent, border: `1px solid ${accent}40` }}>
                     {activity.category}
                   </div>
 
-                  <div className="absolute bottom-3 left-3 flex items-center gap-1 text-[11px] text-white/55">
+                  <div className="absolute bottom-3 left-3 flex items-center gap-1 text-[13px] text-white/55">
                     <Clock className="w-3 h-3" />{activity.duration}
                   </div>
                   <div className="absolute bottom-3 right-3 text-xl">{activity.icon}</div>
@@ -88,8 +88,8 @@ export function Step08Activities() {
                 {/* Content */}
                 <div className={cn('p-4 flex items-center justify-between', selected ? 'bg-[rgba(201,168,76,0.08)]' : 'bg-[var(--navy-card)]')}>
                   <div className="flex-1 min-w-0 mr-3">
-                    <h3 className="font-semibold text-[var(--text-primary)] text-[14px] leading-snug truncate">{activity.name}</h3>
-                    <p className="text-[14px] font-bold mt-0.5" style={{ color: selected ? accent : 'var(--gold-light)' }}>
+                    <h3 className="font-semibold text-[var(--text-primary)] text-[16px] leading-snug truncate">{activity.name}</h3>
+                    <p className="text-[16px] font-bold mt-0.5" style={{ color: selected ? accent : 'var(--gold-light)' }}>
                       {formatPKR(activity.price)}
                     </p>
                   </div>
@@ -119,16 +119,16 @@ export function Step08Activities() {
               <Sparkles className="w-5 h-5 text-[var(--navy)]" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-bold text-[var(--text-primary)]">
+              <p className="text-[17px] font-bold text-[var(--text-primary)]">
                 {selectedActivities.length} {selectedActivities.length === 1 ? 'activity' : 'activities'} selected
               </p>
-              <p className="text-[12px] text-[var(--text-muted)] truncate mt-0.5">
+              <p className="text-[16px] text-[var(--text-muted)] truncate mt-0.5">
                 {selectedActivities.map((a) => a.name).join(' · ')}
               </p>
             </div>
             <div className="text-right shrink-0">
-              <p className="text-[15px] font-bold text-[var(--gold-light)]">+{formatPKR(totalCost)}</p>
-              <p className="text-[11px] text-[var(--text-muted)]">added</p>
+              <p className="text-[17px] font-bold text-[var(--gold-light)]">+{formatPKR(totalCost)}</p>
+              <p className="text-[13px] text-[var(--text-muted)]">added</p>
             </div>
           </motion.div>
         )}

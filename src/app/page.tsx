@@ -43,23 +43,16 @@ export default function Home() {
       className="min-h-screen"
       style={{
         background: `
-          radial-gradient(ellipse 80% 50% at 10% 0%, rgba(22,35,64,0.7) 0%, transparent 60%),
-          radial-gradient(ellipse 60% 60% at 90% 100%, rgba(12,20,38,0.9) 0%, transparent 60%),
-          #080F1E
+          radial-gradient(ellipse 70% 45% at 15% -10%, rgba(201,168,76,0.07) 0%, transparent 55%),
+          radial-gradient(ellipse 60% 50% at 85% 110%, rgba(201,168,76,0.05) 0%, transparent 55%),
+          #F8F5F0
         `,
       }}
     >
-      {/* Subtle grain overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none opacity-[0.025]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-        }}
-      />
 
       <Navbar />
 
-      <main className="pt-[58px]">
+      <main className="pt-[62px]">
         {isWelcome ? (
           <AnimatePresence mode="wait">
             <motion.div
@@ -73,7 +66,8 @@ export default function Home() {
             </motion.div>
           </AnimatePresence>
         ) : (
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-10">
+          /* pb-24 on mobile so mobile bottom bar never covers content */
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-6 py-8 sm:py-10 pb-28 lg:pb-10">
             <div className={showSidebar ? 'grid lg:grid-cols-[1fr_340px] gap-10' : ''}>
               {/* Main content */}
               <div className="min-w-0">
@@ -121,7 +115,7 @@ export default function Home() {
             animate={{ y: 0 }}
             exit={{ y: 80 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-0 left-0 right-0 lg:hidden glass-dark border-t border-[var(--border)] safe-bottom"
+            className="fixed bottom-0 left-0 right-0 lg:hidden bg-white border-t border-[var(--border)] shadow-[0_-4px_24px_rgba(0,0,0,0.07)] safe-bottom"
           >
             <MobileBar />
           </motion.div>
@@ -135,14 +129,14 @@ function MobileBar() {
   const { estimatedPrice, packageScore } = usePackageStore();
 
   return (
-    <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
+    <div className="flex items-center justify-between px-5 py-3.5 max-w-lg mx-auto safe-bottom">
       <div>
-        <p className="text-[11px] text-[var(--text-muted)]">Estimated total</p>
+        <p className="text-[12px] font-medium text-[var(--text-muted)]">Estimated total</p>
         <motion.p
           key={estimatedPrice}
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-[1.1rem] font-bold text-[var(--gold-light)]"
+          className="text-[1.25rem] font-bold text-[var(--gold-light)] leading-tight"
         >
           {formatPKR(estimatedPrice)}
         </motion.p>
@@ -150,8 +144,8 @@ function MobileBar() {
 
       <div className="flex items-center gap-3">
         <div className="text-center">
-          <p className="text-[11px] text-[var(--text-muted)]">Match</p>
-          <p className="text-[14px] font-bold text-[var(--gold)]">{packageScore}%</p>
+          <p className="text-[12px] text-[var(--text-muted)]">Match</p>
+          <p className="text-[16px] font-bold text-[var(--gold-light)]">{packageScore}%</p>
         </div>
 
         <motion.a

@@ -26,7 +26,7 @@ export function PriceSidebar() {
   } = usePackageStore();
 
   const destInfo = destination ? DEST_MAP[destination] : null;
-  const totalPeople = travelers.adults + travelers.children;
+  const totalPeople = travelers.males + travelers.females + travelers.children;
 
   const lineItems = [
     { label: 'Base & Flights', amount: estimatedPrice * 0.60, show: !!budgetTier },
@@ -87,7 +87,7 @@ export function PriceSidebar() {
                 {formatPKR(estimatedPrice)}
               </motion.p>
               {totalPeople > 1 && (
-                <p className="text-[12px] text-[var(--text-muted)] mt-1">
+                <p className="text-[16px] text-[var(--text-muted)] mt-1">
                   ≈ {formatPKR(Math.round(estimatedPrice / totalPeople))} / person
                 </p>
               )}
@@ -95,7 +95,7 @@ export function PriceSidebar() {
             <div className="glass-gold rounded-xl px-3 py-2 text-center">
               <motion.p key={packageScore} initial={{ scale: 1.1 }} animate={{ scale: 1 }}
                 className="text-[1.05rem] font-bold text-[var(--gold)]">{packageScore}%</motion.p>
-              <p className="text-[10px] text-[var(--text-muted)]">match</p>
+              <p className="text-[16px] text-[var(--text-muted)]">match</p>
             </div>
           </div>
 
@@ -107,7 +107,7 @@ export function PriceSidebar() {
               className="h-full gradient-gold rounded-full"
             />
           </div>
-          <p className="text-[11px] text-[var(--text-muted)] mt-1.5">
+          <p className="text-[13px] text-[var(--text-muted)] mt-1.5">
             {packageScore >= 90 ? '🔥 Nearly complete!' : packageScore >= 60 ? '⭐ Keep going' : '✨ Building your package…'}
           </p>
         </div>
@@ -117,8 +117,8 @@ export function PriceSidebar() {
           <div className="px-5 py-4 border-b border-[var(--border)] space-y-2">
             {lineItems.map((item) => (
               <div key={item.label} className="flex items-center justify-between">
-                <span className="text-[13px] text-[var(--text-muted)]">{item.label}</span>
-                <span className="text-[13px] font-medium text-[var(--text-secondary)]">{formatPKR(item.amount)}</span>
+                <span className="text-[15px] text-[var(--text-muted)]">{item.label}</span>
+                <span className="text-[15px] font-medium text-[var(--text-secondary)]">{formatPKR(item.amount)}</span>
               </div>
             ))}
           </div>
@@ -130,7 +130,7 @@ export function PriceSidebar() {
             <>
               <p className="label-caps mb-3">Your selections</p>
               {selections.map((s) => (
-                <div key={s.label} className="flex items-center gap-2 text-[12px]">
+                <div key={s.label} className="flex items-center gap-2 text-[16px]">
                   <span className="w-4 text-center">{s.emoji}</span>
                   <span className="text-[var(--text-muted)] w-16 shrink-0">{s.label}</span>
                   <span className="text-[var(--text-secondary)] font-medium truncate">{s.value}</span>
@@ -138,7 +138,7 @@ export function PriceSidebar() {
               ))}
             </>
           ) : (
-            <p className="text-[13px] text-[var(--text-muted)] py-2 text-center">Make selections to see your package.</p>
+            <p className="text-[17px] text-[var(--text-muted)] py-2 text-center">Make selections to see your package.</p>
           )}
         </div>
       </div>
@@ -148,14 +148,14 @@ export function PriceSidebar() {
         href={`https://wa.me/923001234567?text=${waMsg}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl font-semibold text-[14px] text-white hover:brightness-105 transition-all duration-150 active:scale-98"
+        className="flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl font-semibold text-[16px] text-white hover:brightness-105 transition-all duration-150 active:scale-98"
         style={{ background: 'linear-gradient(135deg, #25D366, #128C7E)' }}
       >
         {WA_ICON}
         Chat on WhatsApp
       </a>
 
-      <p className="text-[11px] text-[var(--text-muted)] text-center">
+      <p className="text-[17px] text-[var(--text-muted)] text-center">
         🔒 Private. No payment required to get a quote.
       </p>
     </div>

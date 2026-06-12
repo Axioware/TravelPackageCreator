@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Check, Sparkles } from 'lucide-react';
-import * as Slider from '@radix-ui/react-slider';
 import { usePackageStore } from '@/store/usePackageStore';
 import { BudgetTier } from '@/types';
 import { StepHeader } from '@/components/ui/StepHeader';
@@ -27,11 +26,8 @@ const TIERS: {
   { id: 'ultra',    label: 'Ultra Luxury', badge: 'The Pinnacle',   amount: 1000000, accent: '#E8C96A', image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=70', features: ['First class', 'Palace hotels', 'Concierge', 'Bespoke everything'] },
 ];
 
-const MIN = 30000;
-const MAX = 2000000;
-
 export function Step05Budget() {
-  const { budgetTier, budgetAmount, setBudgetTier, setBudgetAmount, nextStep, prevStep, estimatedPrice } = usePackageStore();
+  const { budgetTier, setBudgetTier, nextStep, prevStep, estimatedPrice } = usePackageStore();
 
   return (
     <div className="space-y-7">
@@ -52,7 +48,7 @@ export function Step05Budget() {
                 onClick={() => setBudgetTier(tier.id)}
                 className={cn(
                   'hover-card relative text-left rounded-2xl overflow-hidden w-full shadow-card',
-                  isSelected ? 'ring-2 ring-offset-1 ring-offset-[var(--navy)]' : ''
+                  isSelected ? 'ring-2 ring-offset-1 ring-offset-[var(--bg)]' : ''
                 )}
                 style={isSelected ? { '--tw-ring-color': tier.accent } as React.CSSProperties : undefined}
               >
@@ -63,7 +59,7 @@ export function Step05Budget() {
                   <div className="absolute inset-0 opacity-35" style={{ background: `linear-gradient(to top, ${tier.accent}40, transparent)` }} />
 
                   <div
-                    className="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded-full"
+                    className="absolute top-3 left-3 text-[12px] font-bold px-2 py-0.5 rounded-full"
                     style={{ background: `${tier.accent}25`, color: tier.accent, border: `1px solid ${tier.accent}40` }}
                   >
                     {tier.badge}
@@ -77,7 +73,7 @@ export function Step05Budget() {
 
                   <div className="absolute bottom-3 left-3">
                     <p className="text-white font-bold text-[16px] leading-none">{tier.label}</p>
-                    <p className="text-white/55 text-[11px] mt-0.5">{formatPKR(tier.amount)}+</p>
+                    <p className="text-white/55 text-[14px] mt-0.5">{formatPKR(tier.amount)}+</p>
                   </div>
                 </div>
 
@@ -85,7 +81,7 @@ export function Step05Budget() {
                 <div className={cn('p-3', isSelected ? 'bg-[rgba(201,168,76,0.08)]' : 'bg-[var(--navy-card)]')}>
                   <ul className="space-y-1.5">
                     {tier.features.map((f) => (
-                      <li key={f} className="flex items-start gap-1.5 text-[11px] text-[var(--text-secondary)]">
+                      <li key={f} className="flex items-start gap-1.5 text-[14px] text-[var(--text-secondary)]">
                         <span className="shrink-0 mt-px" style={{ color: tier.accent }}>·</span>
                         {f}
                       </li>
@@ -98,36 +94,6 @@ export function Step05Budget() {
         })}
       </div>
 
-      {/* Slider */}
-      <div className="glass rounded-2xl p-6 space-y-5">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[15px] font-semibold text-[var(--text-primary)]">Fine-tune your budget</p>
-            <p className="text-[12px] text-[var(--text-muted)] mt-0.5">Per person (approximate)</p>
-          </div>
-          <motion.div key={budgetAmount} initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
-            className="text-xl font-bold text-[var(--gold-light)]">
-            {formatPKR(budgetAmount)}
-          </motion.div>
-        </div>
-
-        <Slider.Root min={MIN} max={MAX} step={5000} value={[budgetAmount]} onValueChange={([v]) => setBudgetAmount(v)}
-          className="relative flex items-center select-none touch-none w-full h-6">
-          <Slider.Track className="relative h-1.5 grow rounded-full bg-[var(--surface-hover)]">
-            <Slider.Range className="absolute h-full rounded-full gradient-gold" />
-          </Slider.Track>
-          <Slider.Thumb
-            className="block w-6 h-6 rounded-full focus:outline-none cursor-grab active:cursor-grabbing"
-            style={{ background: 'linear-gradient(135deg, #E8C96A, #C9A84C)', boxShadow: '0 0 0 3px rgba(201,168,76,0.25), 0 4px 12px rgba(0,0,0,0.4)' }}
-          />
-        </Slider.Root>
-
-        <div className="flex justify-between text-[11px] text-[var(--text-muted)]">
-          <span>{formatPKR(MIN)}</span>
-          <span>{formatPKR(MAX)}</span>
-        </div>
-      </div>
-
       {/* Live estimate */}
       <AnimatePresence>
         {budgetTier && (
@@ -137,7 +103,7 @@ export function Step05Budget() {
               <Sparkles className="w-5 h-5 text-[var(--gold)]" />
             </div>
             <div className="flex-1">
-              <p className="text-[12px] text-[var(--text-muted)]">Running total estimate</p>
+              <p className="text-[16px] text-[var(--text-muted)]">Running total estimate</p>
               <motion.p key={estimatedPrice} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                 className="text-[1.35rem] font-bold text-[var(--gold-light)]">{formatPKR(estimatedPrice)}</motion.p>
             </div>

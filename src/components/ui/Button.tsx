@@ -23,14 +23,14 @@ export function Button({
       className={cn(
         'inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-all duration-200 select-none',
         'disabled:opacity-40 disabled:pointer-events-none',
-        size === 'sm' && 'px-4 py-2 text-[13px]',
-        size === 'md' && 'px-6 py-2.5 text-[15px]',
-        size === 'lg' && 'px-7 py-3.5 text-base',
+        size === 'sm' && 'px-4 py-2.5 text-[15px] min-h-[42px]',
+        size === 'md' && 'px-6 py-3 text-[16px] min-h-[46px]',
+        size === 'lg' && 'px-7 py-4 text-[17px] min-h-[52px]',
         variant === 'gold' && [
           'gradient-gold text-[var(--navy)] glow-gold-sm',
           'hover:brightness-110 hover:shadow-[0_0_30px_rgba(201,168,76,0.4)]',
         ],
-        variant === 'ghost' && 'bg-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface)]',
+        variant === 'ghost' && 'bg-transparent text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[rgba(0,0,0,0.05)]',
         variant === 'outline' && 'glass border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border-gold)] hover:text-[var(--gold-light)]',
         variant === 'dark' && 'glass-dark border border-[var(--border)] text-[var(--text-secondary)] hover:border-[var(--border-mid)] hover:text-[var(--text-primary)]',
         className

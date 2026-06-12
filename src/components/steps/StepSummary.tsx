@@ -10,6 +10,7 @@ import { StepHeader } from '@/components/ui/StepHeader';
 import { Button } from '@/components/ui/Button';
 import { formatPKR } from '@/lib/utils';
 import { cn } from '@/lib/utils';
+import { submitEnquiry } from '@/app/actions';
 
 const ALL_DESTS = [...INTERNATIONAL_DESTINATIONS, ...PAKISTAN_DESTINATIONS].reduce(
   (acc, d) => { acc[d.id] = d; return acc; },
@@ -33,13 +34,41 @@ export function StepSummary() {
   const destInfo = store.destination ? ALL_DESTS[store.destination] : null;
 
   const waMsg = encodeURIComponent(
-    `Hi! I built a custom package:\n📍 ${destInfo?.name ?? 'Custom'}\n👥 ${store.travelers.adults + store.travelers.children} travelers\n💰 Est. ${formatPKR(store.estimatedPrice)}\n\nPlease contact me!`
+    `Hi! I built a custom package:\n📍 ${destInfo?.name ?? 'Custom'}\n👥 ${store.travelers.males + store.travelers.females + store.travelers.children} travelers\n💰 Est. ${formatPKR(store.estimatedPrice)}\n\nPlease contact me!`
   );
 
-  function handleSubmit() {
+  async function handleSubmit() {
     store.setLeadInfo(name, phone, email);
     setLoading(true);
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 1800);
+    try {
+      await submitEnquiry({
+        leadName:       name,
+        leadPhone:      phone,
+        leadEmail:      email,
+        travelType:     store.travelType,
+        destination:    store.destination,
+        males:          store.travelers.males,
+        females:        store.travelers.females,
+        children:       store.travelers.children,
+        infants:        store.travelers.infants,
+        estimatedPrice: store.estimatedPrice,
+        packageData:    {
+          travelType:          store.travelType,
+          destination:         store.destination,
+          travelers:           store.travelers,
+          dateRange:           store.dateRange,
+          budgetTier:          store.budgetTier,
+          flightClass:         store.flightClass,
+          selectedHotel:       store.selectedHotel,
+          selectedActivities:  store.selectedActivities,
+          transportType:       store.transportType,
+          packageScore:        store.packageScore,
+        },
+      });
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   }
 
   if (submitted) {
@@ -70,7 +99,7 @@ export function StepSummary() {
         <div className="glass rounded-2xl p-6">
           <p className="label-caps mb-2">Estimated Package</p>
           <p className="text-[2.5rem] font-bold text-[var(--gold-light)]">{formatPKR(store.estimatedPrice)}</p>
-          <p className="text-[12px] text-[var(--text-muted)] mt-1">Subject to final confirmation by our agent</p>
+          <p className="text-[16px] text-[var(--text-muted)] mt-1">Subject to final confirmation by our agent</p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
@@ -95,7 +124,7 @@ export function StepSummary() {
 
   const detailRows = [
     { icon: <MapPin className="w-4 h-4" />, label: 'Destination', value: destInfo ? `${destInfo.emoji} ${destInfo.name}` : null },
-    { icon: <Users className="w-4 h-4" />, label: 'Travelers', value: `${store.travelers.adults} Adults · ${store.travelers.children} Children · ${store.travelers.infants} Infants` },
+    { icon: <Users className="w-4 h-4" />, label: 'Travelers', value: `${store.travelers.males}M · ${store.travelers.females}F · ${store.travelers.children} Children · ${store.travelers.infants} Infants` },
     store.dateRange.from && {
       icon: <Calendar className="w-4 h-4" />,
       label: 'Dates',
@@ -127,7 +156,7 @@ export function StepSummary() {
           className="relative rounded-2xl overflow-hidden shadow-card"
           style={{ height: '220px' }}
         >
-          <img src={(destInfo as any).image} alt={destInfo.name} className="w-full h-full object-cover" />
+          <img src={(destInfo as any).image} alt={destInfo.name} className="w-full h-full object-cover" loading="lazy" decoding="async" />
           <div className="absolute inset-0 overlay-darker" />
           <div className="absolute inset-0 p-6 flex flex-col justify-end">
             <div className="flex items-end justify-between">
@@ -138,7 +167,7 @@ export function StepSummary() {
               </div>
               <div className="text-right">
                 <p className="label-caps text-white/40 mb-1">Estimated</p>
-                <p className="text-[1.8rem] font-bold text-[var(--gold-light)]">{formatPKR(store.estimatedPrice)}</p>
+                <p className="text-[1.8rem] font-bold text-[#E8C96A]">{formatPKR(store.estimatedPrice)}</p>
               </div>
             </div>
           </div>
@@ -152,7 +181,7 @@ export function StepSummary() {
         </div>
         <div>
           <p className="font-bold text-[var(--text-primary)]">Package Score</p>
-          <p className="text-[13px] text-[var(--text-secondary)]">
+          <p className="text-[17px] text-[var(--text-secondary)]">
             {store.packageScore >= 90
               ? 'Excellent — almost everything is covered.'
               : 'Looking good — our agents will refine the details.'}
@@ -177,8 +206,8 @@ export function StepSummary() {
             <span className={cn('mt-0.5 shrink-0', row.highlight ? 'text-[var(--gold)]' : 'text-[var(--text-muted)]')}>
               {row.icon}
             </span>
-            <span className="text-[13px] text-[var(--text-muted)] w-20 shrink-0">{row.label}</span>
-            <span className={cn('text-[14px] font-medium flex-1 leading-snug', row.highlight ? 'text-[var(--gold-light)]' : 'text-[var(--text-primary)]')}>
+            <span className="text-[17px] text-[var(--text-muted)] w-20 shrink-0">{row.label}</span>
+            <span className={cn('text-[16px] font-medium flex-1 leading-snug', row.highlight ? 'text-[var(--gold-light)]' : 'text-[var(--text-primary)]')}>
               {row.value}
             </span>
           </motion.div>
@@ -194,7 +223,7 @@ export function StepSummary() {
       >
         <div>
           <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Get your personalised quote</h3>
-          <p className="text-[13px] text-[var(--text-secondary)] mt-1">
+          <p className="text-[17px] text-[var(--text-secondary)] mt-1">
             Share your contact details — a travel expert will call within 2 hours.
           </p>
         </div>
@@ -211,7 +240,7 @@ export function StepSummary() {
                 value={field.value}
                 onChange={(e) => field.set(e.target.value)}
                 placeholder={field.placeholder}
-                className="w-full glass rounded-xl px-4 py-3 text-[14px] text-[var(--text-primary)] placeholder-[var(--text-muted)] border border-[var(--border)] focus:border-[var(--border-gold)] focus:outline-none transition-colors"
+                className="w-full glass rounded-xl px-4 py-3 text-[16px] text-[var(--text-primary)] placeholder-[var(--text-muted)] border border-[var(--border)] focus:border-[var(--border-gold)] focus:outline-none transition-colors"
               />
             </div>
           ))}
@@ -219,7 +248,7 @@ export function StepSummary() {
           <div>
             <label className="label-caps mb-1.5 block">WhatsApp number *</label>
             <div className="flex gap-2">
-              <span className="glass border border-[var(--border)] rounded-xl px-3 flex items-center text-[13px] text-[var(--text-secondary)] shrink-0 gap-1.5">
+              <span className="glass border border-[var(--border)] rounded-xl px-3 flex items-center text-[17px] text-[var(--text-secondary)] shrink-0 gap-1.5">
                 🇵🇰 +92
               </span>
               <input
@@ -227,7 +256,7 @@ export function StepSummary() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="300 1234567"
-                className="flex-1 glass rounded-xl px-4 py-3 text-[14px] text-[var(--text-primary)] placeholder-[var(--text-muted)] border border-[var(--border)] focus:border-[var(--border-gold)] focus:outline-none transition-colors"
+                className="flex-1 glass rounded-xl px-4 py-3 text-[16px] text-[var(--text-primary)] placeholder-[var(--text-muted)] border border-[var(--border)] focus:border-[var(--border-gold)] focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -243,7 +272,7 @@ export function StepSummary() {
           {loading ? 'Sending your request…' : 'Get My Custom Quote →'}
         </Button>
 
-        <div className="flex items-center justify-center gap-2 text-[12px] text-[var(--text-muted)]">
+        <div className="flex items-center justify-center gap-2 text-[16px] text-[var(--text-muted)]">
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
@@ -253,7 +282,7 @@ export function StepSummary() {
 
       {/* Instant WhatsApp */}
       <div className="text-center space-y-3">
-        <p className="text-[13px] text-[var(--text-muted)]">Or connect instantly via WhatsApp</p>
+        <p className="text-[17px] text-[var(--text-muted)]">Or connect instantly via WhatsApp</p>
         <motion.a
           href={`https://wa.me/923001234567?text=${waMsg}`}
           target="_blank"

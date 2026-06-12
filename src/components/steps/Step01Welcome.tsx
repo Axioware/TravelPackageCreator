@@ -79,7 +79,7 @@ export function Step01Welcome() {
           className="inline-flex items-center gap-2 glass-gold rounded-full px-4 py-1.5 mb-7"
         >
           <span className="w-1.5 h-1.5 rounded-full gradient-gold" />
-          <span className="text-[13px] font-semibold text-[var(--gold-light)] tracking-wide">
+          <span className="text-[14px] font-semibold text-[var(--gold-light)] tracking-wide">
             Pakistan's #1 Custom Travel Builder
           </span>
           <span className="w-1.5 h-1.5 rounded-full gradient-gold" />
@@ -89,7 +89,7 @@ export function Step01Welcome() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.08 }}
-          className="text-[2.8rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold leading-[1.05] tracking-tight mb-5"
+          className="text-[2.4rem] sm:text-[3.5rem] md:text-[4.5rem] font-bold leading-[1.05] tracking-tight mb-5"
         >
           Where do you want
           <br />
@@ -165,11 +165,11 @@ export function Step01Welcome() {
                     <h3 className="text-[1.6rem] sm:text-[1.9rem] font-bold text-white leading-tight mb-1.5">
                       {type.label}
                     </h3>
-                    <p className="text-[12px] text-white/50 mb-4 leading-relaxed hidden sm:block">
+                    <p className="text-[16px] text-white/50 mb-4 leading-relaxed hidden sm:block">
                       {type.destinations}
                     </p>
                     <div
-                      className="flex items-center gap-2 text-[13px] font-semibold transition-all duration-200"
+                      className="flex items-center gap-2 text-[15px] font-semibold transition-all duration-200"
                       style={{
                         color: type.accent,
                         opacity: hovered === type.id ? 1 : 0,
@@ -182,7 +182,7 @@ export function Step01Welcome() {
                 </div>
 
                 {/* Stat badge */}
-                <div className="absolute top-4 right-4 glass-dark rounded-full px-2.5 py-1 text-[11px] font-medium text-white/70 border border-white/10">
+                <div className="absolute top-4 right-4 glass-dark rounded-full px-2.5 py-1 text-[12px] font-medium text-white/70 border border-white/10">
                   {type.stat}
                 </div>
               </button>
@@ -205,8 +205,8 @@ export function Step01Welcome() {
                 <Icon className="w-4 h-4 text-[var(--gold)]" />
               </div>
               <div className="min-w-0">
-                <p className="text-[13px] font-bold text-[var(--text-primary)] leading-none mb-0.5">{label}</p>
-                <p className="text-[11px] text-[var(--text-muted)] leading-none">{sub}</p>
+                <p className="text-[15px] font-bold text-[var(--text-primary)] leading-none mb-0.5">{label}</p>
+                <p className="text-[13px] text-[var(--text-muted)] leading-none">{sub}</p>
               </div>
             </div>
           ))}

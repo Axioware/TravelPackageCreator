@@ -3,9 +3,13 @@ export type TravelerType = 'solo' | 'couple' | 'family' | 'group' | null;
 export type FlightClass = 'economy' | 'premium_economy' | 'business' | 'first' | null;
 export type BudgetTier = 'budget' | 'standard' | 'premium' | 'luxury' | 'ultra' | null;
 export type TransportType = 'shared' | 'private' | 'luxury' | null;
+export type RoomType = 'single' | 'double' | 'triple' | 'quad' | 'suite' | null;
+export type ComfortLevel = 'basic' | 'comfortable' | 'premium' | 'luxury' | null;
+export type HotelLocation = 'centre' | 'attractions' | 'beach' | 'quiet' | null;
 
 export interface Travelers {
-  adults: number;
+  males: number;
+  females: number;
   children: number;
   infants: number;
 }
@@ -37,12 +41,6 @@ export interface Activity {
   category: string;
 }
 
-export interface SpecialRequirement {
-  id: string;
-  label: string;
-  icon: string;
-}
-
 export interface PackageState {
   currentStep: number;
   travelType: TravelType;
@@ -61,11 +59,18 @@ export interface PackageState {
   leadPhone: string;
   leadEmail: string;
 
+  // Hotel preferences (used across all flows)
+  roomType: RoomType;
+  comfortLevel: ComfortLevel;
+  hotelLocation: HotelLocation;
+  mealPlanPreference: string | null;
+
   // Hajj / Umrah specific
   departureCity: string | null;
   hotelDistanceFromHaram: string | null;
   groupOrPrivate: 'group' | 'private' | null;
   mealsIncluded: boolean;
+  includesMadinah: boolean;
   elderlyAssistance: boolean;
   directFlightPreferred: boolean;
   hajjUmrahDuration: number;
@@ -92,10 +97,15 @@ export interface PackageActions {
   setTransportType: (type: TransportType) => void;
   toggleSpecialRequirement: (id: string) => void;
   setLeadInfo: (name: string, phone: string, email: string) => void;
+  setRoomType: (r: RoomType) => void;
+  setComfortLevel: (c: ComfortLevel) => void;
+  setHotelLocation: (l: HotelLocation) => void;
+  setMealPlanPreference: (m: string | null) => void;
   setDepartureCity: (city: string) => void;
   setHotelDistanceFromHaram: (d: string) => void;
   setGroupOrPrivate: (v: 'group' | 'private') => void;
   setMealsIncluded: (v: boolean) => void;
+  setIncludesMadinah: (v: boolean) => void;
   setElderlyAssistance: (v: boolean) => void;
   setDirectFlightPreferred: (v: boolean) => void;
   setHajjUmrahDuration: (n: number) => void;
