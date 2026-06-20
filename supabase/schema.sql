@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════
---  SafarSaz — Run this once in the Supabase SQL Editor
+--  Travocom — Run this once in the Supabase SQL Editor
 -- ═══════════════════════════════════════════════════════
 
 -- ── Hajj / Umrah daily rates ────────────────────────────

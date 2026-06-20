@@ -3,7 +3,7 @@ import { LayoutDashboard, Inbox, LogOut, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import { logoutAction } from './login/actions';
 
-export const metadata: Metadata = { title: 'SafarSaz Admin' };
+export const metadata: Metadata = { title: 'Travocom Admin' };
 
 const NAV = [
   { href: '/admin/rates',     label: 'Daily Rates',  Icon: BarChart3 },
@@ -27,7 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               ✈
             </div>
             <div>
-              <p className="font-bold text-white text-[15px] leading-none">SafarSaz</p>
+              <p className="font-bold text-white text-[15px] leading-none">Travocom</p>
               <p className="text-[10px] text-white/40 uppercase tracking-widest mt-0.5">Admin Panel</p>
             </div>
           </div>

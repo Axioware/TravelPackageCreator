@@ -109,7 +109,7 @@ export default async function EnquiriesPage() {
                 {enq.lead_phone && (
                   <div className="px-5 pb-4">
                     <a
-                      href={`https://wa.me/92${enq.lead_phone.replace(/^0/, '')}?text=${encodeURIComponent(`Hi ${enq.lead_name ?? ''}, regarding your SafarSaz travel enquiry...`)}`}
+                      href={`https://wa.me/92${enq.lead_phone.replace(/^0/, '')}?text=${encodeURIComponent(`Hi ${enq.lead_name ?? ''}, regarding your Travocom travel enquiry...`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-[13px] font-semibold text-emerald-600 hover:text-emerald-700"

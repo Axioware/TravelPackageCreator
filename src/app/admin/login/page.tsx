@@ -17,7 +17,7 @@ export default function AdminLoginPage() {
           >
             ✈
           </div>
-          <h1 className="text-[1.6rem] font-bold text-[#1C2B3A]">SafarSaz Admin</h1>
+          <h1 className="text-[1.6rem] font-bold text-[#1C2B3A]">Travocom Admin</h1>
           <p className="text-[15px] text-[#8B9FAE] mt-1">Enter your password to continue</p>
         </div>
 

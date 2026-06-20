@@ -34,7 +34,7 @@ export function Navbar() {
               ✈
             </div>
             <div className="leading-none">
-              <p className="font-bold text-[var(--text-primary)] text-[17px] tracking-tight">SafarSaz</p>
+              <p className="font-bold text-[var(--text-primary)] text-[17px] tracking-tight">Travocom</p>
               <p className="text-[11px] text-[var(--text-muted)] tracking-widest uppercase">Premium Travel</p>
             </div>
           </div>
